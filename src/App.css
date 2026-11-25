@@ -106,3 +106,31 @@ nav a {
   flex-direction: column;
   gap: 0.5rem;
 }
+.ek-malzemeler {
+  margin-top: 1.5rem;
+}
+
+.ek-malzemeler-baslik {
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.ek-malzemeler-aciklama {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.malzeme-listesi {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 0.75rem 1rem;
+}
+
+.malzeme-listesi label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}

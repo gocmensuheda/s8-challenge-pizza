@@ -110,10 +110,10 @@ function App() {
               </select>
             </div>
           </div>
-          <fieldset>
-            <legend>Ek Malzemeler</legend>
-            <p className="malzeme-bilgi">En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
-            <div className="malzemeler-grid">
+          <fieldset className="ek-malzemeler">
+            <legend className="ek-malzemeler-baslik">Ek Malzemeler</legend>
+            <p className="ek-malzemeler-aciklama">En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
+            <div className="malzeme-listesi">
               {
                 MALZEMELER.map((malzeme) => {
                   const slug = malzeme.toLowerCase().replaceAll(" ", "-");
