@@ -19,7 +19,9 @@ function OrderForm() {
     <form className="siparis-formu">
       <div className="boyut-hamur-satiri">
         <fieldset className="boyut-sec">
-          <legend>Boyut Seç</legend>
+          <legend>
+            Boyut Seç <span className="zorunlu" aria-hidden="true">*</span>
+          </legend>
 
           <label htmlFor="boyut-kucuk">
             <input
@@ -53,7 +55,9 @@ function OrderForm() {
         </fieldset>
 
         <div className="hamur-sec">
-          <label htmlFor="hamur-kalinligi">Hamur Seç</label>
+          <label htmlFor="hamur-kalinligi">
+            Hamur Seç <span className="zorunlu" aria-hidden="true">*</span>
+          </label>
           <select
             id="hamur-kalinligi"
             name="hamurKalinligi"
