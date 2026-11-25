@@ -1,34 +1,55 @@
-function OrderForm({ ingredients, order, onOrderChange }) {
-  function updateToppings(ingredient, isSelected) {
-    const toppings = isSelected
-      ? [...order.toppings, ingredient]
-      : order.toppings.filter((topping) => topping !== ingredient)
+const INGREDIENTS = [
+  'Pepperoni',
+  'Sosis',
+  'Kanada Jambonu',
+  'Tavuk Izgara',
+  'Soğan',
+  'Domates',
+  'Mısır',
+  'Sucuk',
+  'Jalepeno',
+  'Sarımsak',
+  'Biber',
+  'Ananas',
+  'Kabak',
+]
 
-    onOrderChange('toppings', toppings)
-  }
-
+function OrderForm() {
   return (
     <form className="siparis-formu">
       <div className="boyut-hamur-satiri">
         <fieldset className="boyut-sec">
           <legend>Boyut Seç</legend>
 
-          {['Küçük', 'Orta', 'Büyük'].map((size) => {
-            const id = `boyut-${size.toLocaleLowerCase('tr-TR')}`
-            return (
-              <label key={size} htmlFor={id}>
-                <input
-                  type="radio"
-                  id={id}
-                  name="boyut"
-                  value={size}
-                  checked={order.size === size}
-                  onChange={(event) => onOrderChange('size', event.target.value)}
-                />
-                {size}
-              </label>
-            )
-          })}
+          <label htmlFor="boyut-kucuk">
+            <input
+              type="radio"
+              id="boyut-kucuk"
+              name="boyut"
+              value="Küçük"
+            />
+            Küçük
+          </label>
+
+          <label htmlFor="boyut-orta">
+            <input
+              type="radio"
+              id="boyut-orta"
+              name="boyut"
+              value="Orta"
+            />
+            Orta
+          </label>
+
+          <label htmlFor="boyut-buyuk">
+            <input
+              type="radio"
+              id="boyut-buyuk"
+              name="boyut"
+              value="Büyük"
+            />
+            Büyük
+          </label>
         </fieldset>
 
         <div className="hamur-sec">
@@ -36,8 +57,7 @@ function OrderForm({ ingredients, order, onOrderChange }) {
           <select
             id="hamur-kalinligi"
             name="hamurKalinligi"
-            value={order.crust}
-            onChange={(event) => onOrderChange('crust', event.target.value)}
+            defaultValue=""
           >
             <option value="" disabled>
               Hamur Kalınlığı
@@ -53,7 +73,7 @@ function OrderForm({ ingredients, order, onOrderChange }) {
         <legend className="ek-malzemeler-baslik">Ek Malzemeler</legend>
         <p className="ek-malzemeler-aciklama">En Fazla 10 malzeme seçebilirsiniz. 5₺</p>
         <div className="malzeme-listesi">
-          {ingredients.map((ingredient) => {
+          {INGREDIENTS.map((ingredient) => {
             const slug = ingredient.toLocaleLowerCase('tr-TR').replaceAll(' ', '-')
             const id = `malzeme-${slug}`
 
@@ -64,8 +84,6 @@ function OrderForm({ ingredients, order, onOrderChange }) {
                   id={id}
                   name="malzemeler"
                   value={ingredient}
-                  checked={order.toppings.includes(ingredient)}
-                  onChange={(event) => updateToppings(ingredient, event.target.checked)}
                 />
                 {ingredient}
               </label>
@@ -83,8 +101,6 @@ function OrderForm({ ingredients, order, onOrderChange }) {
           id="musteri-isim"
           name="isim"
           placeholder="Adınızı girin (en az 3 karakter)"
-          value={order.name}
-          onChange={(event) => onOrderChange('name', event.target.value)}
         />
       </div>
 
@@ -94,26 +110,16 @@ function OrderForm({ ingredients, order, onOrderChange }) {
           id="siparis-notu"
           name="siparisNotu"
           placeholder="Siparişine eklemek istediğin bir not var mı?"
-          value={order.note}
-          onChange={(event) => onOrderChange('note', event.target.value)}
         />
       </div>
 
       <div className="siparis-alt-satir">
         <div className="sayac">
-          <button
-            type="button"
-            aria-label="Adedi azalt"
-            onClick={() => onOrderChange('quantity', Math.max(1, order.quantity - 1))}
-          >
+          <button type="button" aria-label="Adedi azalt">
             -
           </button>
-          <span>{order.quantity}</span>
-          <button
-            type="button"
-            aria-label="Adedi artır"
-            onClick={() => onOrderChange('quantity', order.quantity + 1)}
-          >
+          <span>1</span>
+          <button type="button" aria-label="Adedi artır">
             +
           </button>
         </div>

@@ -1,5 +1,4 @@
 import logo from '../../images/iteration-1-images/logo.svg'
-import { NavLink } from 'react-router-dom'
 
 function SiteHeader() {
   return (
@@ -14,9 +13,7 @@ function SiteHeader() {
             <a href="#secenekler">Seçenekler</a>
           </li>
           <li>
-            <NavLink to="/siparis-olustur" activeClassName="active">
-              Sipariş Oluştur
-            </NavLink>
+            <a href="#siparis-olustur" className="active">Sipariş Oluştur</a>
           </li>
         </ul>
       </nav>
