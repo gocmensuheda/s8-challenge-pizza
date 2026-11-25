@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import workintech from '/workintech.svg'
 import './App.css'
+import logo from "../images/iteration-1-images/logo.svg";
 
 const MALZEMELER = [
   "Pepperoni",
@@ -26,6 +27,7 @@ function App() {
   return (
     <>
       <header>
+        <img src={logo} alt="Teknolojik Yemekler" />
         <nav aria-label="Ana menü">
           <ul>
             <li>
@@ -35,7 +37,7 @@ function App() {
               <a href="#secenekler">Seçenekler</a>
             </li>
             <li>
-              <a href="#siparis-olustur">Sipariş Oluştur</a>
+              <a href="#siparis-olustur" className="active">Sipariş Oluştur</a>
             </li>
           </ul>
         </nav>
