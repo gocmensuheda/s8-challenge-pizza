@@ -1,8 +1,8 @@
 import './App.css'
-import HomePage from './pages/HomePage.jsx'
+import Success from './pages/Success.jsx'
 
 function App() {
-  return <HomePage />
+  return <Success />
 }
 
 export default App

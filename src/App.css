@@ -309,10 +309,11 @@ nav a {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: clamp(480px, 56.25vw, 1080px);
+  min-height: 100vh;
   max-width: none;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   overflow: hidden;
   background-color: var(--color-red);
   background-image: url('../images/iteration-1-images/home-banner.png');
@@ -343,7 +344,7 @@ nav a {
 
 .home-logo {
   display: block;
-  width: clamp(180px, 19vw, 360px);
+  width: 360px;
   max-width: 80vw;
   height: auto;
   margin: 0;
@@ -360,7 +361,7 @@ nav a {
   margin: 0;
   color: #ffffff;
   font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
-  font-size: clamp(2.75rem, 5vw, 5rem);
+  font-size: 5rem;
   font-weight: 300;
   line-height: 1.1;
 }
@@ -379,7 +380,7 @@ nav a {
 
 @media (max-width: 480px) {
   .home-hero {
-    height: 480px;
+    min-height: 100vh;
     background-position: center top;
   }
 
@@ -404,5 +405,86 @@ nav a {
 
   .home-aciktim-btn {
     padding: 0.6rem 2rem;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .home-logo {
+    width: 240px;
+  }
+
+  .home-slogan {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 900px) {
+  .home-logo {
+    width: 180px;
+  }
+
+  .home-slogan {
+    font-size: 2.75rem;
+  }
+}
+
+.success-hero {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-red);
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.success-hero-icerik {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 12vh 1rem 0;
+  gap: 17.5rem;
+}
+
+.success-hero-logo {
+  display: block;
+  width: 360px;
+  max-width: 80vw;
+  height: auto;
+}
+
+.success-slogan {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
+  font-size: 5rem;
+  font-weight: 300;
+  line-height: 1.15;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .success-hero-icerik {
+    padding-top: 10vh;
+    gap: 8rem;
+  }
+
+  .success-hero-logo {
+    width: 180px;
+  }
+
+  .success-slogan {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .success-hero-icerik {
+    gap: 8rem;
   }
 }
