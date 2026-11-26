@@ -1,14 +1,8 @@
 import './App.css'
-import OrderPage from './pages/OrderPage.jsx'
-import SiteHeader from './components/SiteHeader.jsx'
+import HomePage from './pages/HomePage.jsx'
 
 function App() {
-  return (
-    <>
-      <SiteHeader />
-      <OrderPage />
-    </>
-  )
+  return <HomePage />
 }
 
 export default App

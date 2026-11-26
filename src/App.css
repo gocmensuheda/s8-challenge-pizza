@@ -303,3 +303,106 @@ nav a {
     border-radius: 6px;
   }
 }
+
+.home-hero {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: clamp(480px, 56.25vw, 1080px);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-red);
+  background-image: url('../images/iteration-1-images/home-banner.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+
+.home-hero-icerik {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem 1.25rem;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.home-baslik {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.home-logo {
+  display: block;
+  width: clamp(180px, 19vw, 360px);
+  max-width: 80vw;
+  height: auto;
+  margin: 0;
+}
+
+.home-slogan-alani {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.home-slogan {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Roboto Condensed", "Arial Narrow", sans-serif;
+  font-size: clamp(2.75rem, 5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.home-aciktim-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2.5rem;
+  border-radius: 999px;
+  background-color: var(--color-yellow);
+  color: var(--color-gray-dark);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .home-hero {
+    height: 480px;
+    background-position: center top;
+  }
+
+  .home-hero-icerik {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .home-logo {
+    width: 180px;
+  }
+
+  .home-slogan-alani {
+    gap: 1.5rem;
+  }
+
+  .home-slogan {
+    max-width: 15rem;
+    font-size: 2.6rem;
+    line-height: 1.1;
+  }
+
+  .home-aciktim-btn {
+    padding: 0.6rem 2rem;
+  }
+}
