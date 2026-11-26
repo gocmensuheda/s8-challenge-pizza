@@ -1,4 +1,5 @@
 import logo from '../../images/iteration-1-images/logo.svg'
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -15,9 +16,9 @@ export default function HomePage() {
             PİZZA, DOYURUR
           </h1>
 
-          <a className="home-aciktim-btn" href="#siparis-olustur">
+          <Link to='/OrderPage' className="home-aciktim-btn">
             ACIKTIM
-          </a>
+          </Link>
         </section>
       </div>
     </main>
