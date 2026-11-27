@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState } from "react";
+
 const INGREDIENTS = [
   'Pepperoni',
   'Sosis',
@@ -15,8 +18,93 @@ const INGREDIENTS = [
 ]
 
 function OrderForm() {
+
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [size, setSize] = useState("");
+  const [dough, setDough] = useState("");
+
+  const isFormValid =
+    name.trim().length >= 3 &&
+    selectedIngredients.length >= 4 &&
+    selectedIngredients.length <= 10 && Boolean(size) &&
+    Boolean(dough);
+
+  const handleSubmit =async (event) => {
+    event.preventDefault();
+    if (name.trim().length < 3) {
+      setError("İsim en az 3 karakter olmalıdır.");
+      return;
+    }
+    if (selectedIngredients.length < 4 || selectedIngredients.length > 10) {
+      setError("En az 4, en fazla 10 malzeme seçmelisiniz.");
+      return;
+    }
+    if (!size) {
+      setError("Lütfen pizza boyutu seçin.");
+      return;
+    }
+
+    if (!dough) {
+      setError("Lütfen hamur kalınlığı seçin.");
+      return;
+    }
+    setError("");
+    setIsSubmitting(true);
+
+    const orderData = {
+    name: name.trim(),
+    size,
+    dough,
+    ingredients: selectedIngredients,
+  };
+
+
+    console.log("Sipariş gönderildi:", {
+      name: name.trim(), size,
+      dough, ingredients: selectedIngredients
+    });
+
+    
+    try {
+      const response = await axios.post("https://reqres.in/api/pizza", orderData, {
+        headers: { "x-api-key": "reqres-free-v1" },
+      })
+      console.log("API yanıtı:", response.data)
+    } catch (err) {
+      setError("Sipariş gönderilirken bir hata oluştu. Lütfen tekrar deneyin.");
+    } finally {
+      setIsSubmitting(false);//istek başladığında butonu kilitleriz kullanıcı tekrar göndermeye çalışmasın diye.
+    }
+
+  }
+
+  const handleChange = (event) => {
+    setName(event.target.value);
+
+  }
+  const handleSizeChange = (event) => {
+  setSize(event.target.value)
+}
+const handleDoughChange = (event) => {
+  setDough(event.target.value)
+}
+  const handleIngredientChange = (event) => {
+    const { checked, value } = event.target
+    setSelectedIngredients((prev) => {
+      if (checked) {
+        return [...prev, value];
+      }
+      return prev.filter((item) => item !== value);
+    })
+
+  }
+
+
   return (
-    <form className="siparis-formu">
+    <form className="siparis-formu" onSubmit={handleSubmit}>
       <div className="boyut-hamur-satiri">
         <fieldset className="boyut-sec">
           <legend>
@@ -29,6 +117,9 @@ function OrderForm() {
               id="boyut-kucuk"
               name="boyut"
               value="Küçük"
+              checked={size === 'Küçük'}
+              onChange={handleSizeChange}
+              required
             />
             Küçük
           </label>
@@ -39,6 +130,9 @@ function OrderForm() {
               id="boyut-orta"
               name="boyut"
               value="Orta"
+              checked={size === 'Orta'}
+              onChange={handleSizeChange}
+              required
             />
             Orta
           </label>
@@ -49,6 +143,9 @@ function OrderForm() {
               id="boyut-buyuk"
               name="boyut"
               value="Büyük"
+              checked={size === 'Büyük'}
+              onChange={handleSizeChange}
+              required
             />
             Büyük
           </label>
@@ -61,7 +158,9 @@ function OrderForm() {
           <select
             id="hamur-kalinligi"
             name="hamurKalinligi"
-            defaultValue=""
+            value={dough}
+            onChange={handleDoughChange}
+            required
           >
             <option value="" disabled>
               Hamur Kalınlığı
@@ -88,6 +187,8 @@ function OrderForm() {
                   id={id}
                   name="malzemeler"
                   value={ingredient}
+                  checked={selectedIngredients.includes(ingredient)}
+                  onChange={handleIngredientChange}
                 />
                 {ingredient}
               </label>
@@ -105,7 +206,16 @@ function OrderForm() {
           id="musteri-isim"
           name="isim"
           placeholder="Adınızı girin (en az 3 karakter)"
+          value={name}
+          onChange={handleChange}
+          required
+          minLength={3}
         />
+        {error && (
+          <p id="isim-hata" className="form-error" role="alert">
+            {error}
+          </p>
+        )}
       </div>
 
       <div className="not-alani">
@@ -143,8 +253,8 @@ function OrderForm() {
             </div>
           </section>
 
-          <button type="submit" className="siparis-ver-btn">
-            SİPARİŞ VER
+          <button type="submit" className="siparis-ver-btn" disabled={isSubmitting || !isFormValid}>
+            {isSubmitting ? "Gönderildi" : "Sipariş Ver"}
           </button>
         </div>
       </div>
