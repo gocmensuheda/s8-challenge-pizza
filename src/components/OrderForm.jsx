@@ -25,6 +25,8 @@ function OrderForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [size, setSize] = useState("");
   const [dough, setDough] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
 
   const isFormValid =
     name.trim().length >= 3 &&
@@ -32,7 +34,7 @@ function OrderForm() {
     selectedIngredients.length <= 10 && Boolean(size) &&
     Boolean(dough);
 
-  const handleSubmit =async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (name.trim().length < 3) {
       setError("İsim en az 3 karakter olmalıdır.");
@@ -55,11 +57,11 @@ function OrderForm() {
     setIsSubmitting(true);
 
     const orderData = {
-    name: name.trim(),
-    size,
-    dough,
-    ingredients: selectedIngredients,
-  };
+      name: name.trim(),
+      size,
+      dough,
+      ingredients: selectedIngredients,
+    };
 
 
     console.log("Sipariş gönderildi:", {
@@ -67,7 +69,7 @@ function OrderForm() {
       dough, ingredients: selectedIngredients
     });
 
-    
+
     try {
       const response = await axios.post("https://reqres.in/api/pizza", orderData, {
         headers: { "x-api-key": "reqres-free-v1" },
@@ -86,11 +88,11 @@ function OrderForm() {
 
   }
   const handleSizeChange = (event) => {
-  setSize(event.target.value)
-}
-const handleDoughChange = (event) => {
-  setDough(event.target.value)
-}
+    setSize(event.target.value)
+  }
+  const handleDoughChange = (event) => {
+    setDough(event.target.value)
+  }
   const handleIngredientChange = (event) => {
     const { checked, value } = event.target
     setSelectedIngredients((prev) => {
@@ -101,6 +103,9 @@ const handleDoughChange = (event) => {
     })
 
   }
+  const ingredientPrice = selectedIngredients.length * 5;
+  const totalPrice = (85.5 + ingredientPrice) * quantity;
+
 
 
   return (
@@ -229,11 +234,11 @@ const handleDoughChange = (event) => {
 
       <div className="siparis-alt-satir">
         <div className="sayac">
-          <button type="button" aria-label="Adedi azalt">
+          <button onClick={() => setQuantity((adet) => Math.max(1, adet - 1))} type="button" aria-label="Adedi azalt">
             -
           </button>
-          <span>1</span>
-          <button type="button" aria-label="Adedi artır">
+          <span>{quantity}</span>
+          <button onClick={() => setQuantity((adet) => adet + 1)} type="button" aria-label="Adedi artır">
             +
           </button>
         </div>
@@ -244,12 +249,12 @@ const handleDoughChange = (event) => {
 
             <div className="toplam-satir">
               <span>Seçimler</span>
-              <span>0.00₺</span>
+              <span>{ingredientPrice.toFixed(2)}₺</span>
             </div>
 
             <div className="toplam-satir genel-toplam">
               <span>Toplam</span>
-              <span>85.50₺</span>
+              <span>{totalPrice.toFixed(2)}₺</span>
             </div>
           </section>
 
